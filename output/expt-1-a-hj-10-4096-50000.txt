@@ -1,0 +1,153 @@
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO off;
+SET
+SET enable_indexscan TO off;
+SET
+SET enable_mergejoin TO off;
+SET
+SET enable_hashjoin TO on;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT r.c, s.z FROM r JOIN s ON r.a = s.y WHERE r.b <= 50000;
+                                                     QUERY PLAN                                                     
+--------------------------------------------------------------------------------------------------------------------
+ Hash Join  (cost=2455.43..26680.83 rows=503540 width=16) (actual time=30.800..219.411 rows=500000 loops=1)
+   Hash Cond: (s.y = r.a)
+   Buffers: shared read=6016
+   ->  Seq Scan on s  (cost=0.00..15440.00 rows=1000000 width=12) (actual time=0.035..54.847 rows=1000000 loops=1)
+         Buffers: shared read=5440
+   ->  Hash  (cost=1826.00..1826.00 rows=50354 width=12) (actual time=30.181..30.182 rows=50000 loops=1)
+         Buckets: 65536  Batches: 1  Memory Usage: 2661kB
+         Buffers: shared read=576
+         ->  Seq Scan on r  (cost=0.00..1826.00 rows=50354 width=12) (actual time=0.022..16.985 rows=50000 loops=1)
+               Filter: (b <= 50000)
+               Rows Removed by Filter: 50000
+               Buffers: shared read=576
+ Planning:
+   Buffers: shared hit=135 read=33
+ Planning Time: 1.423 ms
+ Execution Time: 232.562 ms
+(16 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            576 |             0 |             1 |            0
+ s       |           5440 |             0 |             1 |            0
+(2 rows)
+
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO off;
+SET
+SET enable_indexscan TO off;
+SET
+SET enable_mergejoin TO off;
+SET
+SET enable_hashjoin TO on;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT r.c, s.z FROM r JOIN s ON r.a = s.y WHERE r.b <= 50000;
+                                                     QUERY PLAN                                                     
+--------------------------------------------------------------------------------------------------------------------
+ Hash Join  (cost=2455.43..26680.83 rows=503540 width=16) (actual time=29.325..216.975 rows=500000 loops=1)
+   Hash Cond: (s.y = r.a)
+   Buffers: shared read=6016
+   ->  Seq Scan on s  (cost=0.00..15440.00 rows=1000000 width=12) (actual time=0.038..54.634 rows=1000000 loops=1)
+         Buffers: shared read=5440
+   ->  Hash  (cost=1826.00..1826.00 rows=50354 width=12) (actual time=28.682..28.683 rows=50000 loops=1)
+         Buckets: 65536  Batches: 1  Memory Usage: 2661kB
+         Buffers: shared read=576
+         ->  Seq Scan on r  (cost=0.00..1826.00 rows=50354 width=12) (actual time=0.023..16.123 rows=50000 loops=1)
+               Filter: (b <= 50000)
+               Rows Removed by Filter: 50000
+               Buffers: shared read=576
+ Planning:
+   Buffers: shared hit=135 read=33
+ Planning Time: 1.554 ms
+ Execution Time: 230.057 ms
+(16 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            576 |             0 |             1 |            0
+ s       |           5440 |             0 |             1 |            0
+(2 rows)
+
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO off;
+SET
+SET enable_indexscan TO off;
+SET
+SET enable_mergejoin TO off;
+SET
+SET enable_hashjoin TO on;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT r.c, s.z FROM r JOIN s ON r.a = s.y WHERE r.b <= 50000;
+                                                     QUERY PLAN                                                     
+--------------------------------------------------------------------------------------------------------------------
+ Hash Join  (cost=2455.43..26680.83 rows=503540 width=16) (actual time=33.434..220.537 rows=500000 loops=1)
+   Hash Cond: (s.y = r.a)
+   Buffers: shared read=6016
+   ->  Seq Scan on s  (cost=0.00..15440.00 rows=1000000 width=12) (actual time=0.040..54.262 rows=1000000 loops=1)
+         Buffers: shared read=5440
+   ->  Hash  (cost=1826.00..1826.00 rows=50354 width=12) (actual time=32.708..32.709 rows=50000 loops=1)
+         Buckets: 65536  Batches: 1  Memory Usage: 2661kB
+         Buffers: shared read=576
+         ->  Seq Scan on r  (cost=0.00..1826.00 rows=50354 width=12) (actual time=0.026..18.323 rows=50000 loops=1)
+               Filter: (b <= 50000)
+               Rows Removed by Filter: 50000
+               Buffers: shared read=576
+ Planning:
+   Buffers: shared hit=135 read=33
+ Planning Time: 1.683 ms
+ Execution Time: 233.600 ms
+(16 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            576 |             0 |             1 |            0
+ s       |           5440 |             0 |             1 |            0
+(2 rows)
+

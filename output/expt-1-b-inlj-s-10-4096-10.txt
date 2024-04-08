@@ -1,0 +1,168 @@
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO on;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO off;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT z FROM s WHERE  EXISTS (SELECT * FROM r WHERE r.a = s.y AND r.b <= 10);
+                                                       QUERY PLAN                                                       
+------------------------------------------------------------------------------------------------------------------------
+ Nested Loop  (cost=1795.53..2225.50 rows=98 width=8) (actual time=19.612..19.814 rows=100 loops=1)
+   Buffers: shared hit=116 read=555
+   ->  HashAggregate  (cost=1791.03..1791.12 rows=10 width=4) (actual time=19.559..19.562 rows=10 loops=1)
+         Group Key: r.a
+         Batches: 1  Memory Usage: 24kB
+         Buffers: shared read=541
+         ->  Seq Scan on r  (cost=0.00..1791.00 rows=10 width=4) (actual time=0.027..19.545 rows=10 loops=1)
+               Filter: (b <= 10)
+               Rows Removed by Filter: 99990
+               Buffers: shared read=541
+   ->  Bitmap Heap Scan on s  (cost=4.50..43.34 rows=10 width=12) (actual time=0.009..0.022 rows=10 loops=10)
+         Recheck Cond: (y = r.a)
+         Heap Blocks: exact=100
+         Buffers: shared hit=116 read=14
+         ->  Bitmap Index Scan on sy_idx  (cost=0.00..4.50 rows=10 width=0) (actual time=0.006..0.006 rows=10 loops=10)
+               Index Cond: (y = r.a)
+               Buffers: shared hit=27 read=3
+ Planning:
+   Buffers: shared hit=119 read=32
+ Planning Time: 1.641 ms
+ Execution Time: 20.020 ms
+(21 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            541 |             0 |               |             
+ s       |             11 |            89 |             4 |           27
+(2 rows)
+
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO on;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO off;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT z FROM s WHERE  EXISTS (SELECT * FROM r WHERE r.a = s.y AND r.b <= 10);
+                                                       QUERY PLAN                                                       
+------------------------------------------------------------------------------------------------------------------------
+ Nested Loop  (cost=1795.53..2225.50 rows=98 width=8) (actual time=19.773..19.976 rows=100 loops=1)
+   Buffers: shared hit=116 read=555
+   ->  HashAggregate  (cost=1791.03..1791.12 rows=10 width=4) (actual time=19.721..19.724 rows=10 loops=1)
+         Group Key: r.a
+         Batches: 1  Memory Usage: 24kB
+         Buffers: shared read=541
+         ->  Seq Scan on r  (cost=0.00..1791.00 rows=10 width=4) (actual time=0.026..19.707 rows=10 loops=1)
+               Filter: (b <= 10)
+               Rows Removed by Filter: 99990
+               Buffers: shared read=541
+   ->  Bitmap Heap Scan on s  (cost=4.50..43.34 rows=10 width=12) (actual time=0.009..0.022 rows=10 loops=10)
+         Recheck Cond: (y = r.a)
+         Heap Blocks: exact=100
+         Buffers: shared hit=116 read=14
+         ->  Bitmap Index Scan on sy_idx  (cost=0.00..4.50 rows=10 width=0) (actual time=0.006..0.006 rows=10 loops=10)
+               Index Cond: (y = r.a)
+               Buffers: shared hit=27 read=3
+ Planning:
+   Buffers: shared hit=119 read=32
+ Planning Time: 1.656 ms
+ Execution Time: 20.181 ms
+(21 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            541 |             0 |               |             
+ s       |             11 |            89 |             4 |           27
+(2 rows)
+
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO on;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO off;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT z FROM s WHERE  EXISTS (SELECT * FROM r WHERE r.a = s.y AND r.b <= 10);
+                                                       QUERY PLAN                                                       
+------------------------------------------------------------------------------------------------------------------------
+ Nested Loop  (cost=1795.53..2225.50 rows=98 width=8) (actual time=18.174..18.421 rows=100 loops=1)
+   Buffers: shared hit=116 read=555
+   ->  HashAggregate  (cost=1791.03..1791.12 rows=10 width=4) (actual time=18.112..18.115 rows=10 loops=1)
+         Group Key: r.a
+         Batches: 1  Memory Usage: 24kB
+         Buffers: shared read=541
+         ->  Seq Scan on r  (cost=0.00..1791.00 rows=10 width=4) (actual time=0.027..18.098 rows=10 loops=1)
+               Filter: (b <= 10)
+               Rows Removed by Filter: 99990
+               Buffers: shared read=541
+   ->  Bitmap Heap Scan on s  (cost=4.50..43.34 rows=10 width=12) (actual time=0.011..0.027 rows=10 loops=10)
+         Recheck Cond: (y = r.a)
+         Heap Blocks: exact=100
+         Buffers: shared hit=116 read=14
+         ->  Bitmap Index Scan on sy_idx  (cost=0.00..4.50 rows=10 width=0) (actual time=0.007..0.007 rows=10 loops=10)
+               Index Cond: (y = r.a)
+               Buffers: shared hit=27 read=3
+ Planning:
+   Buffers: shared hit=119 read=32
+ Planning Time: 1.692 ms
+ Execution Time: 18.639 ms
+(21 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            541 |             0 |               |             
+ s       |             11 |            89 |             4 |           27
+(2 rows)
+

@@ -1,0 +1,153 @@
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO on;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO off;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT z FROM s WHERE NOT  EXISTS (SELECT * FROM r WHERE r.a = s.y AND r.b <= 10);
+                                                     QUERY PLAN                                                      
+---------------------------------------------------------------------------------------------------------------------
+ Nested Loop Anti Join  (cost=0.00..182197.03 rows=999892 width=8) (actual time=17.616..977.203 rows=999900 loops=1)
+   Join Filter: (r.a = s.y)
+   Rows Removed by Join Filter: 9999450
+   Buffers: shared read=5947
+   ->  Seq Scan on s  (cost=0.00..15406.00 rows=1000000 width=12) (actual time=0.029..52.923 rows=1000000 loops=1)
+         Buffers: shared read=5406
+   ->  Materialize  (cost=0.00..1791.06 rows=11 width=4) (actual time=0.000..0.000 rows=10 loops=1000000)
+         Buffers: shared read=541
+         ->  Seq Scan on r  (cost=0.00..1791.00 rows=11 width=4) (actual time=0.020..17.546 rows=10 loops=1)
+               Filter: (b <= 10)
+               Rows Removed by Filter: 99990
+               Buffers: shared read=541
+ Planning:
+   Buffers: shared hit=119 read=32
+ Planning Time: 1.327 ms
+ Execution Time: 1004.039 ms
+(16 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            541 |             0 |             1 |            0
+ s       |           5406 |             0 |               |             
+(2 rows)
+
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO on;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO off;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT z FROM s WHERE NOT  EXISTS (SELECT * FROM r WHERE r.a = s.y AND r.b <= 10);
+                                                     QUERY PLAN                                                      
+---------------------------------------------------------------------------------------------------------------------
+ Nested Loop Anti Join  (cost=0.00..182197.03 rows=999892 width=8) (actual time=19.675..982.161 rows=999900 loops=1)
+   Join Filter: (r.a = s.y)
+   Rows Removed by Join Filter: 9999450
+   Buffers: shared read=5947
+   ->  Seq Scan on s  (cost=0.00..15406.00 rows=1000000 width=12) (actual time=0.033..53.037 rows=1000000 loops=1)
+         Buffers: shared read=5406
+   ->  Materialize  (cost=0.00..1791.06 rows=11 width=4) (actual time=0.000..0.000 rows=10 loops=1000000)
+         Buffers: shared read=541
+         ->  Seq Scan on r  (cost=0.00..1791.00 rows=11 width=4) (actual time=0.022..19.591 rows=10 loops=1)
+               Filter: (b <= 10)
+               Rows Removed by Filter: 99990
+               Buffers: shared read=541
+ Planning:
+   Buffers: shared hit=119 read=32
+ Planning Time: 1.563 ms
+ Execution Time: 1009.129 ms
+(16 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            541 |             0 |             1 |            0
+ s       |           5406 |             0 |               |             
+(2 rows)
+
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO on;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO off;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT z FROM s WHERE NOT  EXISTS (SELECT * FROM r WHERE r.a = s.y AND r.b <= 10);
+                                                     QUERY PLAN                                                      
+---------------------------------------------------------------------------------------------------------------------
+ Nested Loop Anti Join  (cost=0.00..182197.03 rows=999892 width=8) (actual time=19.779..981.110 rows=999900 loops=1)
+   Join Filter: (r.a = s.y)
+   Rows Removed by Join Filter: 9999450
+   Buffers: shared read=5947
+   ->  Seq Scan on s  (cost=0.00..15406.00 rows=1000000 width=12) (actual time=0.033..52.938 rows=1000000 loops=1)
+         Buffers: shared read=5406
+   ->  Materialize  (cost=0.00..1791.06 rows=11 width=4) (actual time=0.000..0.000 rows=10 loops=1000000)
+         Buffers: shared read=541
+         ->  Seq Scan on r  (cost=0.00..1791.00 rows=11 width=4) (actual time=0.023..19.697 rows=10 loops=1)
+               Filter: (b <= 10)
+               Rows Removed by Filter: 99990
+               Buffers: shared read=541
+ Planning:
+   Buffers: shared hit=119 read=32
+ Planning Time: 1.540 ms
+ Execution Time: 1008.002 ms
+(16 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            541 |             0 |             1 |            0
+ s       |           5406 |             0 |               |             
+(2 rows)
+

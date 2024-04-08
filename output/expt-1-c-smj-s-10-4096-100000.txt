@@ -1,0 +1,153 @@
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO off;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO on;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT z FROM s WHERE NOT  EXISTS (SELECT * FROM r WHERE r.a = s.y AND r.b <= 100000);
+                                                            QUERY PLAN                                                             
+-----------------------------------------------------------------------------------------------------------------------------------
+ Merge Anti Join  (cost=10095.39..64061.61 rows=16118 width=8) (actual time=354.692..354.693 rows=0 loops=1)
+   Merge Cond: (s.y = r.a)
+   Buffers: shared hit=994598 read=7095
+   ->  Index Scan using sy_idx on s  (cost=0.42..41127.98 rows=1000000 width=12) (actual time=0.038..239.109 rows=1000000 loops=1)
+         Buffers: shared hit=994598 read=6554
+   ->  Sort  (cost=10094.92..10344.89 rows=99990 width=4) (actual time=33.262..37.521 rows=100000 loops=1)
+         Sort Key: r.a
+         Sort Method: quicksort  Memory: 3073kB
+         Buffers: shared read=541
+         ->  Seq Scan on r  (cost=0.00..1791.00 rows=99990 width=4) (actual time=0.030..22.404 rows=100000 loops=1)
+               Filter: (b <= 100000)
+               Buffers: shared read=541
+ Planning:
+   Buffers: shared hit=127 read=38
+ Planning Time: 1.822 ms
+ Execution Time: 354.987 ms
+(16 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            541 |             0 |               |             
+ s       |           5407 |        994595 |          1154 |            5
+(2 rows)
+
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO off;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO on;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT z FROM s WHERE NOT  EXISTS (SELECT * FROM r WHERE r.a = s.y AND r.b <= 100000);
+                                                            QUERY PLAN                                                             
+-----------------------------------------------------------------------------------------------------------------------------------
+ Merge Anti Join  (cost=10095.39..64061.61 rows=16118 width=8) (actual time=354.605..354.606 rows=0 loops=1)
+   Merge Cond: (s.y = r.a)
+   Buffers: shared hit=994598 read=7095
+   ->  Index Scan using sy_idx on s  (cost=0.42..41127.98 rows=1000000 width=12) (actual time=0.035..238.697 rows=1000000 loops=1)
+         Buffers: shared hit=994598 read=6554
+   ->  Sort  (cost=10094.92..10344.89 rows=99990 width=4) (actual time=33.730..37.951 rows=100000 loops=1)
+         Sort Key: r.a
+         Sort Method: quicksort  Memory: 3073kB
+         Buffers: shared read=541
+         ->  Seq Scan on r  (cost=0.00..1791.00 rows=99990 width=4) (actual time=0.030..22.830 rows=100000 loops=1)
+               Filter: (b <= 100000)
+               Buffers: shared read=541
+ Planning:
+   Buffers: shared hit=127 read=38
+ Planning Time: 1.775 ms
+ Execution Time: 354.890 ms
+(16 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            541 |             0 |               |             
+ s       |           5407 |        994595 |          1154 |            5
+(2 rows)
+
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO off;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO on;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT z FROM s WHERE NOT  EXISTS (SELECT * FROM r WHERE r.a = s.y AND r.b <= 100000);
+                                                            QUERY PLAN                                                             
+-----------------------------------------------------------------------------------------------------------------------------------
+ Merge Anti Join  (cost=10095.39..64061.61 rows=16118 width=8) (actual time=348.529..348.530 rows=0 loops=1)
+   Merge Cond: (s.y = r.a)
+   Buffers: shared hit=994598 read=7095
+   ->  Index Scan using sy_idx on s  (cost=0.42..41127.98 rows=1000000 width=12) (actual time=0.033..237.154 rows=1000000 loops=1)
+         Buffers: shared hit=994598 read=6554
+   ->  Sort  (cost=10094.92..10344.89 rows=99990 width=4) (actual time=29.622..33.818 rows=100000 loops=1)
+         Sort Key: r.a
+         Sort Method: quicksort  Memory: 3073kB
+         Buffers: shared read=541
+         ->  Seq Scan on r  (cost=0.00..1791.00 rows=99990 width=4) (actual time=0.028..19.939 rows=100000 loops=1)
+               Filter: (b <= 100000)
+               Buffers: shared read=541
+ Planning:
+   Buffers: shared hit=127 read=38
+ Planning Time: 1.626 ms
+ Execution Time: 348.805 ms
+(16 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            541 |             0 |               |             
+ s       |           5407 |        994595 |          1154 |            5
+(2 rows)
+

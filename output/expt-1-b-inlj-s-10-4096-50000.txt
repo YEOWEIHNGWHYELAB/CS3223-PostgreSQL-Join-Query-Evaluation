@@ -1,0 +1,156 @@
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO on;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO off;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT z FROM s WHERE  EXISTS (SELECT * FROM r WHERE r.a = s.y AND r.b <= 50000);
+                                                      QUERY PLAN                                                       
+-----------------------------------------------------------------------------------------------------------------------
+ Nested Loop  (cost=1916.83..63783.42 rows=493584 width=8) (actual time=32.457..293.976 rows=500000 loops=1)
+   Buffers: shared hit=646708 read=3833
+   ->  HashAggregate  (cost=1916.40..2418.03 rows=50162 width=4) (actual time=32.412..39.733 rows=50000 loops=1)
+         Group Key: r.a
+         Batches: 1  Memory Usage: 3601kB
+         Buffers: shared read=541
+         ->  Seq Scan on r  (cost=0.00..1791.00 rows=50162 width=4) (actual time=0.030..14.663 rows=50000 loops=1)
+               Filter: (b <= 50000)
+               Rows Removed by Filter: 50000
+               Buffers: shared read=541
+   ->  Index Scan using sy_idx on s  (cost=0.42..1.12 rows=10 width=12) (actual time=0.001..0.004 rows=10 loops=50000)
+         Index Cond: (y = r.a)
+         Buffers: shared hit=646708 read=3292
+ Planning:
+   Buffers: shared hit=119 read=32
+ Planning Time: 1.510 ms
+ Execution Time: 309.153 ms
+(17 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            541 |             0 |               |             
+ s       |           2713 |        497287 |           580 |       149421
+(2 rows)
+
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO on;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO off;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT z FROM s WHERE  EXISTS (SELECT * FROM r WHERE r.a = s.y AND r.b <= 50000);
+                                                      QUERY PLAN                                                       
+-----------------------------------------------------------------------------------------------------------------------
+ Nested Loop  (cost=1916.83..63783.42 rows=493584 width=8) (actual time=34.220..298.821 rows=500000 loops=1)
+   Buffers: shared hit=646708 read=3833
+   ->  HashAggregate  (cost=1916.40..2418.03 rows=50162 width=4) (actual time=34.176..41.617 rows=50000 loops=1)
+         Group Key: r.a
+         Batches: 1  Memory Usage: 3601kB
+         Buffers: shared read=541
+         ->  Seq Scan on r  (cost=0.00..1791.00 rows=50162 width=4) (actual time=0.033..15.380 rows=50000 loops=1)
+               Filter: (b <= 50000)
+               Rows Removed by Filter: 50000
+               Buffers: shared read=541
+   ->  Index Scan using sy_idx on s  (cost=0.42..1.12 rows=10 width=12) (actual time=0.001..0.004 rows=10 loops=50000)
+         Index Cond: (y = r.a)
+         Buffers: shared hit=646708 read=3292
+ Planning:
+   Buffers: shared hit=119 read=32
+ Planning Time: 1.695 ms
+ Execution Time: 314.314 ms
+(17 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            541 |             0 |               |             
+ s       |           2713 |        497287 |           580 |       149421
+(2 rows)
+
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO on;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO off;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT z FROM s WHERE  EXISTS (SELECT * FROM r WHERE r.a = s.y AND r.b <= 50000);
+                                                      QUERY PLAN                                                       
+-----------------------------------------------------------------------------------------------------------------------
+ Nested Loop  (cost=1916.83..63783.42 rows=493584 width=8) (actual time=30.431..290.446 rows=500000 loops=1)
+   Buffers: shared hit=646708 read=3833
+   ->  HashAggregate  (cost=1916.40..2418.03 rows=50162 width=4) (actual time=30.389..37.655 rows=50000 loops=1)
+         Group Key: r.a
+         Batches: 1  Memory Usage: 3601kB
+         Buffers: shared read=541
+         ->  Seq Scan on r  (cost=0.00..1791.00 rows=50162 width=4) (actual time=0.028..13.854 rows=50000 loops=1)
+               Filter: (b <= 50000)
+               Rows Removed by Filter: 50000
+               Buffers: shared read=541
+   ->  Index Scan using sy_idx on s  (cost=0.42..1.12 rows=10 width=12) (actual time=0.001..0.004 rows=10 loops=50000)
+         Index Cond: (y = r.a)
+         Buffers: shared hit=646708 read=3292
+ Planning:
+   Buffers: shared hit=119 read=32
+ Planning Time: 1.366 ms
+ Execution Time: 305.444 ms
+(17 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            541 |             0 |               |             
+ s       |           2713 |        497287 |           580 |       149421
+(2 rows)
+

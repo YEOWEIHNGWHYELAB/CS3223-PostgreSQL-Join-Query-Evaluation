@@ -1,0 +1,159 @@
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO on;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO off;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT r.c, s.z FROM r JOIN s ON r.a = s.y WHERE r.b <= 10000;
+                                                         QUERY PLAN                                                         
+----------------------------------------------------------------------------------------------------------------------------
+ Nested Loop  (cost=0.30..141436.12 rows=98623 width=16) (actual time=0.117..405.879 rows=100000 loops=1)
+   Buffers: shared hit=299184 read=6222
+   ->  Seq Scan on s  (cost=0.00..15406.00 rows=1000000 width=12) (actual time=0.038..57.149 rows=1000000 loops=1)
+         Buffers: shared read=5406
+   ->  Memoize  (cost=0.30..0.33 rows=1 width=12) (actual time=0.000..0.000 rows=0 loops=1000000)
+         Cache Key: s.y
+         Cache Mode: logical
+         Hits: 900000  Misses: 100000  Evictions: 0  Overflows: 0  Memory Usage: 7071kB
+         Buffers: shared hit=299184 read=816
+         ->  Index Scan using ra_idx on r  (cost=0.29..0.32 rows=1 width=12) (actual time=0.001..0.001 rows=0 loops=100000)
+               Index Cond: (a = s.y)
+               Filter: (b <= 10000)
+               Rows Removed by Filter: 1
+               Buffers: shared hit=299184 read=816
+ Planning:
+   Buffers: shared hit=121 read=33
+ Planning Time: 1.632 ms
+ Execution Time: 414.153 ms
+(18 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            541 |         99459 |           276 |       199725
+ s       |           5406 |             0 |               |             
+(2 rows)
+
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO on;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO off;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT r.c, s.z FROM r JOIN s ON r.a = s.y WHERE r.b <= 10000;
+                                                         QUERY PLAN                                                         
+----------------------------------------------------------------------------------------------------------------------------
+ Nested Loop  (cost=0.30..141436.12 rows=98623 width=16) (actual time=0.118..404.945 rows=100000 loops=1)
+   Buffers: shared hit=299184 read=6222
+   ->  Seq Scan on s  (cost=0.00..15406.00 rows=1000000 width=12) (actual time=0.039..56.896 rows=1000000 loops=1)
+         Buffers: shared read=5406
+   ->  Memoize  (cost=0.30..0.33 rows=1 width=12) (actual time=0.000..0.000 rows=0 loops=1000000)
+         Cache Key: s.y
+         Cache Mode: logical
+         Hits: 900000  Misses: 100000  Evictions: 0  Overflows: 0  Memory Usage: 7071kB
+         Buffers: shared hit=299184 read=816
+         ->  Index Scan using ra_idx on r  (cost=0.29..0.32 rows=1 width=12) (actual time=0.001..0.001 rows=0 loops=100000)
+               Index Cond: (a = s.y)
+               Filter: (b <= 10000)
+               Rows Removed by Filter: 1
+               Buffers: shared hit=299184 read=816
+ Planning:
+   Buffers: shared hit=121 read=33
+ Planning Time: 1.612 ms
+ Execution Time: 413.506 ms
+(18 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            541 |         99459 |           276 |       199725
+ s       |           5406 |             0 |               |             
+(2 rows)
+
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO on;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO off;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT r.c, s.z FROM r JOIN s ON r.a = s.y WHERE r.b <= 10000;
+                                                         QUERY PLAN                                                         
+----------------------------------------------------------------------------------------------------------------------------
+ Nested Loop  (cost=0.30..141436.12 rows=98623 width=16) (actual time=0.116..405.412 rows=100000 loops=1)
+   Buffers: shared hit=299184 read=6222
+   ->  Seq Scan on s  (cost=0.00..15406.00 rows=1000000 width=12) (actual time=0.039..56.999 rows=1000000 loops=1)
+         Buffers: shared read=5406
+   ->  Memoize  (cost=0.30..0.33 rows=1 width=12) (actual time=0.000..0.000 rows=0 loops=1000000)
+         Cache Key: s.y
+         Cache Mode: logical
+         Hits: 900000  Misses: 100000  Evictions: 0  Overflows: 0  Memory Usage: 7071kB
+         Buffers: shared hit=299184 read=816
+         ->  Index Scan using ra_idx on r  (cost=0.29..0.32 rows=1 width=12) (actual time=0.001..0.001 rows=0 loops=100000)
+               Index Cond: (a = s.y)
+               Filter: (b <= 10000)
+               Rows Removed by Filter: 1
+               Buffers: shared hit=299184 read=816
+ Planning:
+   Buffers: shared hit=121 read=33
+ Planning Time: 1.610 ms
+ Execution Time: 413.679 ms
+(18 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            541 |         99459 |           276 |       199725
+ s       |           5406 |             0 |               |             
+(2 rows)
+

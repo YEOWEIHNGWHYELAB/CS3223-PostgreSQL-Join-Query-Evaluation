@@ -1,0 +1,168 @@
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO off;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO on;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT r.c, s.z FROM r JOIN s ON r.a = s.y WHERE r.b <= 10;
+                                                       QUERY PLAN                                                        
+-------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=133946.03..138946.65 rows=108 width=16) (actual time=309.062..309.091 rows=100 loops=1)
+   Merge Cond: (s.y = r.a)
+   Buffers: shared read=5947, temp read=3112 written=5411
+   ->  Sort  (cost=132154.34..134654.34 rows=1000000 width=12) (actual time=302.881..302.888 rows=101 loops=1)
+         Sort Key: s.y
+         Sort Method: external merge  Disk: 21632kB
+         Buffers: shared read=5406, temp read=3112 written=5411
+         ->  Seq Scan on s  (cost=0.00..15406.00 rows=1000000 width=12) (actual time=0.036..85.581 rows=1000000 loops=1)
+               Buffers: shared read=5406
+   ->  Sort  (cost=1791.19..1791.22 rows=11 width=12) (actual time=6.176..6.180 rows=91 loops=1)
+         Sort Key: r.a
+         Sort Method: quicksort  Memory: 25kB
+         Buffers: shared read=541
+         ->  Seq Scan on r  (cost=0.00..1791.00 rows=11 width=12) (actual time=0.016..6.170 rows=10 loops=1)
+               Filter: (b <= 10)
+               Rows Removed by Filter: 99990
+               Buffers: shared read=541
+ Planning:
+   Buffers: shared hit=129 read=37
+ Planning Time: 1.840 ms
+ Execution Time: 310.912 ms
+(21 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            542 |             1 |             4 |            1
+ s       |           5406 |             0 |               |             
+(2 rows)
+
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO off;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO on;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT r.c, s.z FROM r JOIN s ON r.a = s.y WHERE r.b <= 10;
+                                                       QUERY PLAN                                                        
+-------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=133946.03..138946.65 rows=108 width=16) (actual time=311.551..311.580 rows=100 loops=1)
+   Merge Cond: (s.y = r.a)
+   Buffers: shared read=5947, temp read=3112 written=5411
+   ->  Sort  (cost=132154.34..134654.34 rows=1000000 width=12) (actual time=305.379..305.387 rows=101 loops=1)
+         Sort Key: s.y
+         Sort Method: external merge  Disk: 21632kB
+         Buffers: shared read=5406, temp read=3112 written=5411
+         ->  Seq Scan on s  (cost=0.00..15406.00 rows=1000000 width=12) (actual time=0.036..86.365 rows=1000000 loops=1)
+               Buffers: shared read=5406
+   ->  Sort  (cost=1791.19..1791.22 rows=11 width=12) (actual time=6.166..6.170 rows=91 loops=1)
+         Sort Key: r.a
+         Sort Method: quicksort  Memory: 25kB
+         Buffers: shared read=541
+         ->  Seq Scan on r  (cost=0.00..1791.00 rows=11 width=12) (actual time=0.016..6.160 rows=10 loops=1)
+               Filter: (b <= 10)
+               Rows Removed by Filter: 99990
+               Buffers: shared read=541
+ Planning:
+   Buffers: shared hit=129 read=37
+ Planning Time: 1.860 ms
+ Execution Time: 313.407 ms
+(21 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            542 |             1 |             4 |            1
+ s       |           5406 |             0 |               |             
+(2 rows)
+
+ dropdbbuffers 
+---------------
+ t
+(1 row)
+
+ pg_stat_reset 
+---------------
+ 
+(1 row)
+
+SET enable_nestloop TO off;
+SET
+SET enable_indexscan TO on;
+SET
+SET enable_mergejoin TO on;
+SET
+SET enable_hashjoin TO off;
+SET
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT r.c, s.z FROM r JOIN s ON r.a = s.y WHERE r.b <= 10;
+                                                       QUERY PLAN                                                        
+-------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=133946.03..138946.65 rows=108 width=16) (actual time=311.508..311.537 rows=100 loops=1)
+   Merge Cond: (s.y = r.a)
+   Buffers: shared read=5947, temp read=3112 written=5411
+   ->  Sort  (cost=132154.34..134654.34 rows=1000000 width=12) (actual time=305.380..305.387 rows=101 loops=1)
+         Sort Key: s.y
+         Sort Method: external merge  Disk: 21632kB
+         Buffers: shared read=5406, temp read=3112 written=5411
+         ->  Seq Scan on s  (cost=0.00..15406.00 rows=1000000 width=12) (actual time=0.036..86.414 rows=1000000 loops=1)
+               Buffers: shared read=5406
+   ->  Sort  (cost=1791.19..1791.22 rows=11 width=12) (actual time=6.123..6.127 rows=91 loops=1)
+         Sort Key: r.a
+         Sort Method: quicksort  Memory: 25kB
+         Buffers: shared read=541
+         ->  Seq Scan on r  (cost=0.00..1791.00 rows=11 width=12) (actual time=0.016..6.116 rows=10 loops=1)
+               Filter: (b <= 10)
+               Rows Removed by Filter: 99990
+               Buffers: shared read=541
+ Planning:
+   Buffers: shared hit=129 read=37
+ Planning Time: 1.818 ms
+ Execution Time: 313.343 ms
+(21 rows)
+
+ pg_sleep 
+----------
+ 
+(1 row)
+
+ relname | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
+---------+----------------+---------------+---------------+--------------
+ r       |            542 |             1 |             4 |            1
+ s       |           5406 |             0 |               |             
+(2 rows)
+
